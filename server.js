@@ -111,11 +111,11 @@ app.get("/text", function(request,response){
 // search and validate email 
 app.get("/email",function(request,response){
  let searchEmail=request.query.email;
- let findEmail = bookings.filter(email => email.email.includes(searchEmail.toLowerCase()));
- if(validator.validate(searchEmail)) {
-   response.json(findEmail)
+ let findEmail = bookings.find(email => email.email.includes(searchEmail.toLowerCase()));
+ if(validator.validate(searchEmail) && findEmail) {
+   response.json(findEmail.email)
  }else{
-   response.send({status:400})
+   response.sendStatus(404)
  }
 })
 
